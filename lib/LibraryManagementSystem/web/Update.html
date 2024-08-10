@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Book</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-image: url('update-bg.jpg'); /* Background image for visual interest */
+            background-size: cover;
+            background-attachment: fixed;
+            color: #ecf0f1; /* Light text color */
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .form-box {
+            background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 600px;
+        }
+        .form-box h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .form-box p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        input[type="text"],
+        input[type="submit"] {
+            display: block;
+            width: calc(100% - 20px);
+            padding: 15px;
+            margin: 10px auto;
+            border-radius: 5px;
+            border: none;
+            box-sizing: border-box;
+        }
+        input[type="text"] {
+            background-color: #fff;
+            color: #333;
+        }
+        input[type="submit"] {
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+        .back-link {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #2ecc71;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+        }
+        .back-link:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h1>Update Book</h1>
+            <p>Update the details of the book below:</p>
+            <form id="updateBookForm">
+                <input type="text" id="bookId" placeholder="Book ID" required>
+                <input type="text" id="title" placeholder="New Title" required>
+                <input type="text" id="author" placeholder="New Author" required>
+                <input type="text" id="genre" placeholder="New Genre" required>
+                <input type="submit" value="Update Book">
+            </form>
+            <a href="user-dashboard.html" class="back-link">Back to Dashboard</a>
+        </div>
+    </div>
+    <script>
+        document.getElementById('updateBookForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Book details updated successfully!');
+            window.location.href = 'user-dashboard.html'; // Redirect to user dashboard
+        });
+    </script>
+</body>

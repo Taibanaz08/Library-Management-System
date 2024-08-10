@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Books</title>
+    <style>
+        body {
+            background-image: url('view-books-bg.jpg'); /* Background image for visual interest */
+            background-size: cover;
+            background-attachment: fixed;
+            color: #ecf0f1; /* Light text color */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 30px;
+            max-width: 1200px;
+            margin: auto;
+            background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+            border-radius: 10px;
+            margin-top: 50px;
+            overflow-x: auto;
+        }
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #3498db;
+        }
+        th {
+            background-color: #2980b9;
+        }
+        tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        .button:hover {
+            background-color: #2980b9;
+        }
+        .no-books {
+            text-align: center;
+            color: #ecf0f1;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Available Books</h1>
+        <table id="booksTable">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Genre</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Book rows will be added dynamically here -->
+            </tbody>
+        </table>
+        <p class="no-books" id="noBooksMessage">No books available.</p>
+        <a href="UserDashboard.html" class="button">Back to Dashboard</a>
+    </div>
+    <script>
+        // Sample data - replace this with dynamic data from your server or local storage
+        const books = [
+            { title: 'Computer Systems', author: 'Randal E.Bryant', genre: 'Science' },
+            { title: 'Java Programming', author: 'James Gosling', genre: 'Programming' },
+            { title: 'Operating Systems', author: 'Andrew S.Tenenbaum', genre: 'Technology' },
+            { title: 'Database Management', author: 'Abraham Silberschatz', genre: 'Database' }
+        ];
+
+        function displayBooks() {
+            const tableBody = document.querySelector('#booksTable tbody');
+            const noBooksMessage = document.getElementById('noBooksMessage');
+
+            if (books.length === 0) {
+                noBooksMessage.style.display = 'block';
+                return;
+            }
+
+            noBooksMessage.style.display = 'none';
+
+            books.forEach(book => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${book.title}</td>
+                    <td>${book.author}</td>
+                    <td>${book.genre}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        window.onload = displayBooks;
+    </script>
+</body>

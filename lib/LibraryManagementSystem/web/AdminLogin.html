@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <style>
+        body {
+            background-image: url('admin-login-bg.jpg');
+            background-size: cover;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        input {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 80%;
+            max-width: 300px;
+        }
+        .button {
+            padding: 15px 30px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Login</h1>
+        <form onsubmit="handleAdminLogin(event)">
+            <input type="text" id="admin-username" placeholder="Admin Username" required>
+            <input type="password" id="admin-password" placeholder="Admin Password" required>
+            <button class="button" type="submit">Login</button>
+        </form>
+    </div>
+    <script>
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            // Validate login here and redirect to admin dashboard
+            location.href = 'admin-dashboard.html';
+        }
+    </script>
+</body>
+</html>

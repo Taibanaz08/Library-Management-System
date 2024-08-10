@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return Book</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #fbc2eb, #a6c0fe);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input, button {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .button-container button {
+            width: 48%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Return Book</h1>
+        <form id="returnBookForm">
+            <label for="bookName">Book Name:</label>
+            <input type="text" id="bookName" required>
+            
+            <label for="returnDate">Return Date:</label>
+            <input type="date" id="returnDate" required>
+            
+            <div class="button-container">
+                <button type="submit">Return Book</button>
+                <button type="button" onclick="goToDashboard()">Go to Dashboard</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("returnBookForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const bookName = document.getElementById("bookName").value;
+            const returnDate = document.getElementById("returnDate").value;
+
+            // Retrieve books from local storage
+            let books = JSON.parse(localStorage.getItem("books")) || [];
+            
+            // Find the book to update
+            books = books.map(book => {
+                if (book.bookName === bookName && !book.returnDate) {
+                    book.returnDate = returnDate;
+                    const borrowDate = new Date(book.borrowDate);
+                    const returnDateObj = new Date(returnDate);
+                    const diffDays = Math.ceil((returnDateObj - borrowDate) / (1000 * 60 * 60 * 24));
+                    if (diffDays > 15) {
+                        book.fine = (diffDays - 15) * 10;
+                    }
+                }
+                return book;
+            });
+
+            // Save updated books back to local storage
+            localStorage.setItem("books", JSON.stringify(books));
+
+            // Redirect to profile page
+            window.location.href = "profile.html";
+        });
+
+        function goToDashboard() {
+            window.location.href = "UserDashboard.html";
+        }
+    </script>
+</body>
+</html>

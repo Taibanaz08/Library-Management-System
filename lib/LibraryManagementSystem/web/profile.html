@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #fbc2eb, #a6c0fe);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        #profileContainer, #booksContainer {
+            margin-bottom: 20px;
+        }
+        #profileContainer p, #booksContainer p {
+            margin: 10px 0;
+        }
+        #profileImage {
+            display: block;
+            margin: 0 auto;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff4c4c;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+        }
+        button:hover {
+            background-color: #e63946;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .modal-content h2 {
+            margin-bottom: 20px;
+        }
+        .close-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Profile</h1>
+        <div id="profileContainer">
+            <img id="profileImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVxrxTdD0nPP0ZRr4OhkvhVS4qc08JpBohqA&s" alt="Profile Picture">
+            <h2>Profile Information</h2>
+            <p id="userName"></p>
+            <p id="userEmail"></p>
+        </div>
+        <div id="booksContainer">
+            <h2>Books Added</h2>
+            <table id="booksTable">
+                <thead>
+                    <tr>
+                        <th>Book Name</th>
+                        <th>Author Name</th>
+                        <th>Borrow Date</th>
+                        <th>Return Date</th>
+                        <th>Fine</th>
+                    </tr>
+                </thead>
+                <tbody id="booksList">
+                    <!-- Book rows will be added here dynamically -->
+                </tbody>
+            </table>
+        </div>
+        <div class="buttons-container">
+            <button id="clearBooksBtn">Clear All Books</button>
+            <button id="dashboardBtn">Go to Dashboard</button>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </div>
+
+    <!-- Modal for Thank You Message -->
+    <div id="thankYouModal" class="modal">
+        <div class="modal-content">
+            <h2>Thank you for visiting!</h2>
+            <p>You have been logged out.</p>
+            <button id="closeModalBtn" class="close-btn">Close</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Retrieve user information from local storage
+            const userName = localStorage.getItem("userName") || "Not Available";
+            const userEmail = localStorage.getItem("userEmail") || "Not Available";
+
+            // Display user information
+            document.getElementById("userName").textContent =` Name: ${userName}`;
+            document.getElementById("userEmail").textContent = `Email: ${userEmail}`;
+
+            // Retrieve and display books added
+            const booksTableBody = document.getElementById("booksList");
+            const books = JSON.parse(localStorage.getItem("books")) || [];
+            
+            if (books.length === 0) {
+                booksTableBody.innerHTML = "<tr><td colspan='5'>No books added yet.</td></tr>";
+            } else {
+                books.forEach(book => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${book.bookName}</td>
+                        <td>${book.authorName}</td>
+                        <td>${book.borrowDate}</td>
+                        <td>${book.returnDate || 'Not Returned'}</td>
+                        <td>${book.fine ? book.fine : '0'}</td>
+                    `;
+                    booksTableBody.appendChild(row);
+                });
+            }
+
+            // Add event listener to clear books button
+            document.getElementById("clearBooksBtn").addEventListener("click", () => {
+                // Remove books from local storage
+                localStorage.removeItem("books");
+                
+                // Clear book list on the page
+                booksTableBody.innerHTML = "<tr><td colspan='5'>No books added yet.</td></tr>";
+            });
+
+            // Add event listener to the dashboard button
+            document.getElementById("dashboardBtn").addEventListener("click", () => {
+                // Navigate to the dashboard page
+                window.location.href = "dashboard.html";
+            });
+
+            // Modal elements
+            const thankYouModal = document.getElementById("thankYouModal");
+            const closeModalBtn = document.getElementById("closeModalBtn");
+
+            // Add event listener to the logout button
+            document.getElementById("logoutBtn").addEventListener("click", () => {
+                // Show the thank you modal
+                thankYouModal.style.display = "flex";
+            });
+
+            // Close the modal and redirect
+            closeModalBtn.addEventListener("click", () => {
+                thankYouModal.style.display = "none";
+                window.location.href = "index.html";  // Redirect to a page after logout
+            });
+
+            // Close the modal if clicked outside of the modal content
+            window.addEventListener("click", (event) => {
+                if (event.target === thankYouModal) {
+                    thankYouModal.style.display = "none";
+                    window.location.href = "index.html";
+                }
+            });
+        });
+    </script>
+</body>
+</html>

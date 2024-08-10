@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        .navbar{
+            background-color: #333;
+            padding: 10px;
+            color: white;
+            text-align: right;
+        }
+        .navbar a{
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+        .navbar a:hover{
+            background-color: #218838;
+        }
+        .content{
+            padding-top: 60px;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-image: url('https://www.bournemouth.ac.uk/sites/default/files/assets/images/books-library-summary.jpg'); /* Background image for visual interest */
+            background-size: cover;
+            background-attachment: fixed;
+            color: #ecf0f1; /* Light text color */
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+            padding: 30px;
+            border-radius: 10px;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        .button:hover {
+            background-color: #2980b9;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white background for cards */
+            border: 1px solid #3498db;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            text-align: left;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+        }
+        .card h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .card p {
+            font-size: 1em;
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="profile.html">Profile</a>
+    </div>
+    <div class="container">
+        <div class="card">
+            <h2>View Books</h2>
+            <p>Browse through our extensive collection of books. Find your favorite titles and authors.</p>
+            <a href="ViewBooks.html" class="button">View Books</a>
+        </div>
+        <div class="card">
+            <h2>Add New Book</h2>
+            <p>Add new books to our collection. Keep our library updated with the latest titles.</p>
+            <a href="AddBook.html" class="button">Add Book</a>
+        </div>
+        <div class="card">
+            <h2>Update Book Information</h2>
+            <p>Update details of existing books. Make sure the information is always accurate.</p>
+            <a href="UpdateBook.html" class="button">Update Book</a>
+        </div>
+        <div class="card">
+            <h2>Return Books</h2>
+            <p>Remove books that are no longer available. Keep the library collection relevant and up-to-date.</p>
+            <a href="ReturnBook.html" class="button">Return Book</a>
+        </div>
+        <div class="card">
+            <h2>Calculate Fines</h2>
+            <p>Calculate fines for overdue books. Ensure timely returns and maintain the library's efficiency.</p>
+            <a href="CalculateFine.html" class="button">Calculate Fine</a>
+        </div>
+    </div>
+</body>
+
+</html>

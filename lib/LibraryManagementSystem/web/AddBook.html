@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #fbc2eb, #a6c0fe);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input, button {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .button-container button {
+            width: 48%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add Book</h1>
+        <form id="addBookForm">
+            <label for="bookName">Book Name:</label>
+            <input type="text" id="bookName" required>
+            
+            <label for="authorName">Author Name:</label>
+            <input type="text" id="authorName" required>
+            
+            <label for="borrowDate">Borrow Date:</label>
+            <input type="date" id="borrowDate" required>
+            
+            <div class="button-container">
+                <button type="submit">Add Book</button>
+                <button type="button" onclick="goToDashboard()">Go to Dashboard</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("addBookForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const bookName = document.getElementById("bookName").value;
+            const authorName = document.getElementById("authorName").value;
+            const borrowDate = document.getElementById("borrowDate").value;
+
+            // Retrieve books from local storage
+            const books = JSON.parse(localStorage.getItem("books")) || [];
+            
+            // Add new book to the list
+            books.push({ bookName, authorName, borrowDate, returnDate: null, fine: 0 });
+            
+            // Save updated books list back to local storage
+            localStorage.setItem("books", JSON.stringify(books));
+
+            // Redirect to dashboard page
+            window.location.href = "UserDashboard.html";
+        });
+
+        function goToDashboard() {
+            window.location.href = "UserDashboard.html";
+        }
+    </script>
+</body>

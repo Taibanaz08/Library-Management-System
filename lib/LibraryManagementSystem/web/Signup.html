@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <style>
+        body {
+            background-image: url('signup-bg.jpg');
+            background-size: cover;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        input {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 80%;
+            max-width: 300px;
+        }
+        .button {
+            padding: 15px 30px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Signup</h1>
+        <form onsubmit="handleSignup(event)">
+            <input type="text" id="signup-username" placeholder="Username" required>
+            <input type="password" id="signup-password" placeholder="Password" required>
+            <button class="button" type="submit">Signup</button>
+        </form>
+    </div>
+    <script>
+        function handleSignup(event) {
+            event.preventDefault();
+            // Handle signup logic here and redirect to user dashboard
+            location.href = 'user-dashboard.html';
+        }
+    </script>
+</body>
+</html>
