@@ -30,7 +30,7 @@ pipeline {
                 
                 bat '''
                 mkdir build
-                xcopy /E /I /Y * build\ /EXCLUDE:build
+                robocopy . build /E /XD build
                 '''
             }
         }
