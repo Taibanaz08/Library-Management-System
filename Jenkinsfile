@@ -1,57 +1,54 @@
+
 pipeline {
     agent any
-
-    environment {
-        DEPLOY_DIR = "C:\\inetpub\\wwwroot\\library-app"
-    }
 
     stages {
 
         stage('Checkout Code') {
             steps {
-                echo 'Pulling latest code from GitHub...'
-                checkout scm
+                echo 'Pulling code from GitHub...'
+                git branch: 'main',
+                    url: 'https://github.com/Taibanaz08/Library-Management-System.git'
             }
         }
 
-        
+        stage('Validate Project') {
+            steps {
+                echo 'Checking project structure...'
+                bat '''
+                if not exist lib\\LibraryManagementSystem\\web\\index.html (
+                    echo ERROR: index.html missing!
+                    exit 1
+                )
+                '''
+            }
+        }
 
         stage('Clean Workspace') {
             steps {
-                echo 'Cleaning old build files...'
+                echo 'Cleaning build folder...'
                 deleteDir()
-                checkout scm
+                git branch: 'main',
+                    url: 'https://github.com/Taibanaz08/Library-Management-System.git'
             }
         }
 
         stage('Package Application') {
             steps {
-                echo 'Creating deployment package...'
-                
+                echo 'Creating build folder...'
                 bat '''
                 mkdir build
-                robocopy . build /E /XD build
+                robocopy lib\\LibraryManagementSystem\\web build /E
                 '''
             }
         }
 
-        stage('Deploy to Server') {
+        stage('Deploy') {
             steps {
                 echo 'Deploying application...'
-
                 bat '''
-                C:\\xampp\\htdocs\\library-app mkdir C:\\xampp\\htdocs\\library-app
-        robocopy build C:\\xampp\\htdocs\\library-app /E
-                '''
-            }
-        }
-
-        stage('Post Deployment Check') {
-            steps {
-                echo 'Verifying deployment...'
-
-                bat '''
-                dir "%DEPLOY_DIR%"
+                echo Deployment done!
+                dir build
                 '''
             }
         }
@@ -59,10 +56,10 @@ pipeline {
 
     post {
         success {
-            echo '🚀 Deployment SUCCESS - Library App is live!'
+            echo 'Deployment SUCCESS ✅'
         }
         failure {
-            echo '❌ Deployment FAILED - Check logs'
+            echo 'Deployment FAILED ❌ check logs'
         }
     }
 }
