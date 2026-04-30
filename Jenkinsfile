@@ -4,38 +4,28 @@ pipeline {
 
     stages {
 
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                echo 'Pulling code from GitHub...'
                 git branch: 'main',
                     url: 'https://github.com/Taibanaz08/Library-Management-System.git'
             }
         }
 
-        stage('Validate Project') {
+        stage('Validate') {
             steps {
-                echo 'Checking project structure...'
                 bat '''
-                if not exist lib\\LibraryManagementSystem\\web\\index.html (
-                    echo ERROR: index.html missing!
-                    exit 1
+                if exist lib\\LibraryManagementSystem\\web\\index.html (
+                    echo VALIDATION PASSED
+                ) else (
+                    echo FILE MISSING
+                    exit /b 1
                 )
                 '''
             }
         }
 
-        stage('Clean Workspace') {
+        stage('Build') {
             steps {
-                echo 'Cleaning build folder...'
-                deleteDir()
-                git branch: 'main',
-                    url: 'https://github.com/Taibanaz08/Library-Management-System.git'
-            }
-        }
-
-        stage('Package Application') {
-            steps {
-                echo 'Creating build folder...'
                 bat '''
                 mkdir build
                 robocopy lib\\LibraryManagementSystem\\web build /E
@@ -45,21 +35,18 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Deploying application...'
-                bat '''
-                echo Deployment done!
-                dir build
-                '''
+                echo "Static site ready in build folder"
+                bat 'dir build'
             }
         }
     }
 
     post {
         success {
-            echo 'Deployment SUCCESS ✅'
+            echo "SUCCESS 🚀"
         }
         failure {
-            echo 'Deployment FAILED ❌ check logs'
+            echo "FAILED ❌"
         }
     }
 }
