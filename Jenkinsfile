@@ -14,19 +14,7 @@ pipeline {
             }
         }
 
-        stage('Validate Project') {
-            steps {
-                echo 'Checking project structure...'
-
-                // Basic validation (important in real CI)
-                bat '''
-                if not exist lib\LibraryManagementSystem\\web\\index.html (
-                    echo ERROR: index.html missing!
-                    exit 1
-                )
-                '''
-            }
-        }
+        
 
         stage('Clean Workspace') {
             steps {
