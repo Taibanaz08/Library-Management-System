@@ -40,8 +40,8 @@ pipeline {
                 echo 'Deploying application...'
 
                 bat '''
-                if not exist "%DEPLOY_DIR%" mkdir "%DEPLOY_DIR%"
-                xcopy /E /I /Y build\\* "%DEPLOY_DIR%"
+                C:\\xampp\\htdocs\\library-app mkdir C:\\xampp\\htdocs\\library-app
+        robocopy build C:\\xampp\\htdocs\\library-app /E
                 '''
             }
         }
