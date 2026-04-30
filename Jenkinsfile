@@ -20,7 +20,7 @@ pipeline {
 
                 // Basic validation (important in real CI)
                 bat '''
-                if not exist index.html (
+                if not exist lib\LibraryManagementSystem\\web\\index.html (
                     echo ERROR: index.html missing!
                     exit 1
                 )
