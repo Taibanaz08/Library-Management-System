@@ -27,13 +27,13 @@ pipeline {
         
          stage('Build Docker Image') {
             steps {
-                sh 'docker build -t library-web .'
+                bat 'docker build -t library-web .'
             }
         }
 
         stage('Stop Old Container') {
             steps {
-                sh '''
+                bat '''
                 docker stop library-container || true
                 docker rm library-container || true
                 '''
@@ -42,7 +42,7 @@ pipeline {
 
         stage('Run Container') {
             steps {
-                sh 'docker run -d -p 9091:80 --name library-container library-web'
+                bat 'docker run -d -p 9091:80 --name library-container library-web'
             }
         }
 
