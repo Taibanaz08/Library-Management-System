@@ -24,12 +24,25 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        
+         stage('Build Docker Image') {
             steps {
-                bat '''
-                mkdir build
-                robocopy lib\\LibraryManagementSystem\\web build /E
+                sh 'docker build -t library-web .'
+            }
+        }
+
+        stage('Stop Old Container') {
+            steps {
+                sh '''
+                docker stop library-container || true
+                docker rm library-container || true
                 '''
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                sh 'docker run -d -p 9091:80 --name library-container library-web'
             }
         }
 
