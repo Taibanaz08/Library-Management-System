@@ -1,4 +1,4 @@
 
 FROM nginx:alpine
-COPY . /usr/share/nginx/html
+ COPY lib/LibraryManagementSystem/web/ /usr/share/nginx/html/
 EXPOSE 80
