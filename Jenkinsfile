@@ -34,8 +34,8 @@ pipeline {
         stage('Stop Old Container') {
             steps {
                 bat '''
-                docker stop library-container || true
-                docker rm library-container || true
+                docker stop library-container 2>nul
+                docker rm library-container 2>nul
                 '''
             }
         }
